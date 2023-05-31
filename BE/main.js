@@ -1,7 +1,7 @@
 import express from 'express';
 import { error } from 'node:console';
 import fsP from 'node:fs/promises'
-import cors from 'cors'
+// import cors from 'cors'
 
 const app = express();
 const port = 3001;
