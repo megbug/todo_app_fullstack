@@ -7,7 +7,7 @@ const ToDoList = () => {
 
     useEffect(() => {
         const getTodos = async () => {
-            const response = await fetch('http://localhost:3001/todos', {});
+            const response = await fetch('/todos', {});
             const data = await response.json();
             setTodos(data);
         }
@@ -20,7 +20,7 @@ const ToDoList = () => {
         const inputText = document.querySelector('form input[type="text"]');
         try {
             const postTodo = async () => {
-                const response = await fetch('http://localhost:3001/todos', {
+                const response = await fetch('/todos', {
                     method: "POST",
                     body: JSON.stringify({ title: `${inputText.value}`, completed: false }),
                     headers: {
@@ -40,7 +40,7 @@ const ToDoList = () => {
 
     const removeCheck = (id) => {
         const deleteTodo = async () => {
-            const response = await fetch(`http://localhost:3001/todos/${id}`, {
+            const response = await fetch(`/todos/${id}`, {
                 method: "DELETE",
             })
             const data = await response.json();
@@ -52,7 +52,7 @@ const ToDoList = () => {
     const completedTodo = (id, value) => {
         try {
             const updatedTodo = async () => {
-                const response = await fetch(`http://localhost:3001/todos/${id}`, {
+                const response = await fetch(`/todos/${id}`, {
                     method: "PUT",
                     body: JSON.stringify({ completed: value }),
                     headers: {
