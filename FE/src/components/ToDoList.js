@@ -20,7 +20,7 @@ const ToDoList = () => {
         const inputText = document.querySelector('form input[type="text"]');
         try {
             const postTodo = async () => {
-                const response = await fetch("http://localhost:3001/todos", {
+                const response = await fetch('http://localhost:3001/todos', {
                     method: "POST",
                     body: JSON.stringify({ title: `${inputText.value}`, completed: false }),
                     headers: {
