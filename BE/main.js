@@ -13,9 +13,7 @@ mongoose.connect(process.env.DB)
 app.get('/', (req, res) => {
     res.send('i work')
 })
-// sollte status 200 zurückgeben
 
-//weiterhin mit try und catch? 
 app.get('/todos', async (req, res) => {
     try {
         const todos = await ToDo.find();
@@ -67,6 +65,7 @@ app.delete('/todos/:id', async (req, res) => {
     const { id } = req.params;
     try {
         await ToDo.deleteOne({ _id: id })
+        res.send('successfull deleted');
     }
     catch (err) {
         console.error(err);
