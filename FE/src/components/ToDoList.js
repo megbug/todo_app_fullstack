@@ -15,7 +15,6 @@ const ToDoList = () => {
 
         e.preventDefault()
         console.log(e);
-        // Form field values
         const title = e.currentTarget[0].value;
 
         try {
@@ -32,16 +31,12 @@ const ToDoList = () => {
             const updatedTodo = async () => {
                 const resp = await axios.put(`/todos/${id}`, { completed: value });
                 setTodos((prevState) => {
-                    console.log(prevState);
                     const filteredTodoList = prevState.filter(item => {
                         return (
                             item._id !== id
                         )
                     })
-                    console.log(filteredTodoList);
-                    console.log(resp.data);
                     return [...filteredTodoList, resp.data]
-                    //return filteredTodoList // returned Liste ohne clicked todo -> korrekt für deleting
                 })
             }
             updatedTodo();
@@ -52,16 +47,27 @@ const ToDoList = () => {
         }
     }
 
-    // const removeCheck = (id) => {
-    //     const deleteTodo = async () => {
-    //         const response = await axios.delete(`/todos/${id}`, {
-    //             method: "DELETE",
-    //         })
-    //         const data = await response.json();
-    //         setTodos(data);
-    //     };
-    //     deleteTodo();
-    // }
+    const removeTodo = (id) => {
+        console.log('i got clicked');
+        try {
+            const deleteTodo = async () => {
+                const response = await axios.delete(`/todos/${id}`)
+                setTodos((prevState) => {
+                    console.log(prevState);
+                    const filteredTodoList = prevState.filter(item => {
+                        return (
+                            item._id !== id
+                        )
+                    })
+                    return filteredTodoList
+                })
+            }
+            deleteTodo()
+        }
+        catch (err) {
+            console.error(err)
+        }
+    }
 
 
 
@@ -73,11 +79,10 @@ const ToDoList = () => {
             </form>
             <article>
                 {todos.map((elt) => {
-                    // console.log(elt);
                     return (
                         <div>
                             <ToDoItem key={elt._id} task={elt} completedTodo={completedTodo} />
-                            {/* <button onClick={() => removeCheck(elt._id)}>delete</button> */}
+                            <button onClick={() => removeTodo(elt._id)}>delete</button>
                         </div>
                     )
                 })}
